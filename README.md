@@ -39,26 +39,32 @@ versions
 The file
 [app-config.json](versions/v1/app-config.json) contains the `version` 
 as attribute of the root object:
-```
+```JSON
 {
-  "version": 1,
-  ...
+  "version": 1
 }
 ```
 The
 [app-config-schema.json](versions/v1/app-config-schema.json)
 enforces this version to a specific constant:
-```
+```JSON
 {
   "type": "object",
   "properties": {
     "version": {
       "type": "integer",
       "const": 1
-    },
-    ...
+    }
   }
 }
 ```
 Thus, in order to create a new version an existing version should be copied
 and the two files must be updated accordingly.
+
+## Local testing
+In order to test the configurations locally, make sure to have a recent LTS version of Node.js installed (^20.9.0).
+Then run the following commands:
+```bash
+npm install # only needed once to install all dependencies
+npm test    # to validate all configuration files against their respective schemas
+```
