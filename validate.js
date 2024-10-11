@@ -12,7 +12,7 @@ const valid = validate(data);
 
 // Perform validation
 if (!valid) {
-  console.log("Invalid JSON!");
+  console.log("Error: Invalid JSON:");
   console.log(validate.errors); // Log detailed validation errors
   process.exit(1); // Failure exit code
 }
