@@ -5,13 +5,14 @@
   "main": "validate.js",
   "scripts": {
     "test": "node validate.js",
-    "clean": "rimraf node_modules" 
+    "clean": "rimraf node_modules"
   },
   "keywords": [],
   "author": "Oliver Wahlen",
   "license": "ISC",
   "dependencies": {
-    "ajv": "^8.17.1"
+    "ajv": "^8.17.1",
+    "ajv-keywords": "^5.1.0"
   },
   "devDependencies": {
     "rimraf": "^6.0.1"

@@ -1,12 +1,15 @@
 const fs = require('fs');
 const path = require('path');
 const Ajv = require('ajv');
+const addKeywords = require('ajv-keywords');
 
 const CONFIG_FILE = 'app-config.json';
 const SCHEMA_FILE = 'app-config-schema.json';
 
 // Initialize Ajv instance
 const ajv = new Ajv({ allErrors: true });
+// Add support for additional non-standard schema keywords
+addKeywords(ajv, "uniqueItemProperties");
 
 // Function to validate JSON against schema
 function validateConfig(configPath, schemaPath, subdir) {
