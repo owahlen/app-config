@@ -1,0 +1,37 @@
+name: Validate JSON Schema
+
+on:
+  pull_request:
+    # Run on pull requests to any branch
+  push:
+    # Runs on pushes to any branch
+
+jobs:
+  validate-json:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*' # Use the latest LTS version of Node.js
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Run the validation script using npm test
+      - name: Run JSON Validation
+        run: npm test
+
+      # Fail the build if the script fails
+      - name: Check validation result
+        if: failure()  # Will fail the job if the previous step failed
+        run: |
+          echo "JSON validation failed. Please fix the JSON data or schema."
+          exit 1

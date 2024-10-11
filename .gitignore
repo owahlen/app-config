@@ -1,0 +1,12 @@
+# Environments variables
+.env
+
+# Dependency directories
+node_modules/
+
+# Operating System
+.DS_Store/
+
+# IDEs
+.vscode/
+.idea/
