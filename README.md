@@ -39,7 +39,7 @@ versions
 The file
 [app-config.json](versions/v1/app-config.json) contains the `version` 
 as attribute of the root object:
-```json
+```
 {
   "version": 1,
   ...
@@ -48,7 +48,7 @@ as attribute of the root object:
 The
 [app-config-schema.json](versions/v1/app-config-schema.json)
 enforces this version to a specific constant:
-```json
+```
 {
   "type": "object",
   "properties": {
