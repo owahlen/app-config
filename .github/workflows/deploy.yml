@@ -26,7 +26,8 @@ jobs:
           git clone https://github.com/owahlen/app-config-public.git
           
           # Copy the file to the public repo directory
-          cp app-config.json app-config-public/
+          mkdir -p app-config-public/docs
+          cp app-config.json app-config-public/docs/
 
           # Change to the public repo directory
           cd app-config-public
