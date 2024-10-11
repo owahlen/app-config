@@ -8,7 +8,7 @@ The apps download this configuration at startup time from a
 The app configuration is stored in the file
 [app-config.json](app-config.json).
 Its content is validated against the JSON schema defined in the file
-[app-config.schema.json](app-config-schema.json).
+[app-config-schema.json](app-config-schema.json).
 In order to update the configuration create a pull request with the changes to any of these files.
 The [json-validation.yml](.github/workflows/json-validation.yml)
 GitHub action will validate the configuration against the schema when the pull request is submitted.
