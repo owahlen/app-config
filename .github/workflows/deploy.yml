@@ -26,8 +26,9 @@ jobs:
           git clone https://github.com/owahlen/app-config-public.git
           
           # Copy the file to the public repo directory
+          rm -rf app-config-public/docs
           mkdir -p app-config-public/docs
-          cp app-config.json app-config-public/docs/
+          cp -r versions/* app-config-public/docs/
 
           # Change to the public repo directory
           cd app-config-public
@@ -37,6 +38,6 @@ jobs:
           git config user.email "actions@github.com"
 
           # Commit and push the changes
-          git add docs/app-config.json
-          git commit -m "Update app-config.json"
+          git add -A
+          git commit -m "Updating app configurations"
           git push https://owahlen:${APP_CONFIG_TOKEN}@github.com/owahlen/app-config-public.git HEAD:main
