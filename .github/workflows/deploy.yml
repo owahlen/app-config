@@ -19,6 +19,8 @@ jobs:
 
       # Copy app-config.json to the public repo
       - name: Copy app-config.json
+        env:
+          APP_CONFIG_TOKEN: ${{ secrets.APP_CONFIG_TOKEN }}
         run: |
           # Clone the public repository
           git clone https://github.com/owahlen/app-config-public.git
@@ -36,4 +38,4 @@ jobs:
           # Commit and push the changes
           git add app-config.json
           git commit -m "Update app-config.json"
-          git push https://$APP_CONFIG_TOKEN@github.com/owahlen/app-config-public.git HEAD:main
+          git push https://owahlen:${APP_CONFIG_TOKEN}@github.com/owahlen/app-config-public.git HEAD:main
