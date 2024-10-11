@@ -2,18 +2,30 @@
   "name": "app-config",
   "version": "1.0.0",
   "description": "",
-  "main": "validate.js",
+  "main": "dist/validate.js",
   "scripts": {
-    "test": "node validate.js",
-    "clean": "rimraf node_modules" 
+    "lint": "eslint",
+    "build": "eslint && tsc",
+    "test": "eslint && tsc && node dist/validate.js",
+    "clean": "rimraf dist node_modules"
   },
   "keywords": [],
   "author": "Oliver Wahlen",
   "license": "ISC",
   "dependencies": {
-    "ajv": "^8.17.1"
+    "ajv": "^8.17.1",
+    "ajv-keywords": "^5.1.0",
+    "fs": "^0.0.1-security"
   },
   "devDependencies": {
-    "rimraf": "^6.0.1"
+    "@eslint/js": "^9.12.0",
+    "@types/node": "^22.7.5",
+    "@typescript-eslint/eslint-plugin": "^8.8.1",
+    "@typescript-eslint/parser": "^8.8.1",
+    "eslint": "^9.12.0",
+    "globals": "^15.11.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.8.1"
   }
 }

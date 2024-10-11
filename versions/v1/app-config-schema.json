@@ -10,6 +10,9 @@
     "msps": {
       "type": "array",
       "description": "List of mobility service providers (msps).",
+      "uniqueItemProperties": [
+        "id"
+      ],
       "items": {
         "type": "object",
         "properties": {
