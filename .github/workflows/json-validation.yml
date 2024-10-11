@@ -33,5 +33,5 @@ jobs:
       - name: Check validation result
         if: failure()  # Will fail the job if the previous step failed
         run: |
-          echo "JSON validation failed. Please fix the JSON data or schema."
+          echo "JSON validation of app configurations failed."
           exit 1

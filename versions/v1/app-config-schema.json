@@ -4,7 +4,8 @@
   "properties": {
     "version": {
       "type": "integer",
-      "description": "The version of the schema."
+      "description": "The version of the schema.",
+      "const": 1
     },
     "msps": {
       "type": "array",
@@ -18,7 +19,14 @@
           },
           "category": {
             "type": "string",
-            "enum": ["Public Transport", "Scooter", "Bike", "Car", "Taxi", "Walk"],
+            "enum": [
+              "Public Transport",
+              "Scooter",
+              "Bike",
+              "Car",
+              "Taxi",
+              "Walk"
+            ],
             "description": "The category of the mobility service provider."
           },
           "bookable": {
@@ -34,9 +42,18 @@
             "description": "Indicates if the provider can be searched for trips."
           }
         },
-        "required": ["id", "category", "bookable", "mapSearchable", "tripSearchable"]
+        "required": [
+          "id",
+          "category",
+          "bookable",
+          "mapSearchable",
+          "tripSearchable"
+        ]
       }
     }
   },
-  "required": ["version", "msps"]
+  "required": [
+    "version",
+    "msps"
+  ]
 }
