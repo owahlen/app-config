@@ -9,7 +9,7 @@
 		"tripSearchable": true
 	},{
 		"id": "Voi",
-		"category": "Scooter2",
+		"category": "Bike",
 		"bookable": true,
 		"mapSearchable": true,
 		"tripSearchable": true
