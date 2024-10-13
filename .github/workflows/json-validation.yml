@@ -29,7 +29,7 @@ jobs:
       - name: Build application
         run: npm run build
 
-      # Run the validation script using npm test
+      # Perform the validation of the app configuration
       - name: Run JSON Validation
         run: npm start
 
