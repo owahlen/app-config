@@ -4,6 +4,9 @@
 # Dependency directories
 node_modules/
 
+# Code coverage results
+coverage/
+
 # Generated files
 dist/
 

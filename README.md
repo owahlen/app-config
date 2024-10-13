@@ -65,6 +65,7 @@ and the two files must be updated accordingly.
 In order to test the configurations locally, make sure to have a recent LTS version of Node.js installed (^20.9.0).
 Then run the following commands:
 ```bash
-npm install # only needed once to install all dependencies
-npm test    # to validate all configuration files against their respective schemas
+npm install   # only needed once to install all dependencies
+npm run build # to build the application and to run internal tests
+npm start     # to validate all configuration files against their respective schemas
 ```
