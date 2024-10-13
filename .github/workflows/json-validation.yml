@@ -25,9 +25,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      # Build the application and run tests
+      - name: Build application
+        run: npm build
+
       # Run the validation script using npm test
       - name: Run JSON Validation
-        run: npm test
+        run: npm start
 
       # Fail the build if the script fails
       - name: Check validation result
