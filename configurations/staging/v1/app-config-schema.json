@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "integer",
+      "description": "The version of the schema.",
+      "const": 1
+    },
+    "msps": {
+      "type": "array",
+      "description": "List of mobility service providers (msps).",
+      "uniqueItemProperties": [
+        "id"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the mobility service provider."
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "Public Transport",
+              "Scooter",
+              "Bike",
+              "Car",
+              "Taxi",
+              "Walk"
+            ],
+            "description": "The category of the mobility service provider."
+          },
+          "bookable": {
+            "type": "boolean",
+            "description": "Indicates if the provider is bookable."
+          },
+          "mapSearchable": {
+            "type": "boolean",
+            "description": "Indicates if the provider can be found on the map."
+          },
+          "tripSearchable": {
+            "type": "boolean",
+            "description": "Indicates if the provider can be searched for trips."
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "category",
+          "bookable",
+          "mapSearchable",
+          "tripSearchable"
+        ]
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "msps"
+  ]
+}

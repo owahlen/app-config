@@ -8,14 +8,15 @@ const ajv = new Ajv({allErrors: true});
 addKeywords(ajv, ['uniqueItemProperties']); // Add support for `uniqueItemProperties`
 
 // Define a function to validate JSON config against a schema
-export function validateJSON(configPath: string, schemaPath: string) {
+export function getValidatedConfiguration(configPath: string, schemaPath: string) {
     const config = parseJSONFile(configPath);
     const schema = parseJSONFile(schemaPath);
     const errors = validateSchema(config, schema);
     if (errors) {
         const errorsText = ajv.errorsText(errors);
-        throw new Error(`Error validating JSON file '${configPath}': ${errorsText}`);
+        throw new Error(`Validation failed for JSON file '${configPath}': ${errorsText}`);
     }
+    return config;
 }
 
 function parseJSONFile(path: string): object {
@@ -24,7 +25,7 @@ function parseJSONFile(path: string): object {
         return JSON.parse(data);
     } catch (error) {
         if (error instanceof Error) {
-            throw new Error(`Error parsing JSON file '${path}': ${error.message}`);
+            throw new Error(`Unable to parse JSON file '${path}': ${error.message}`);
         } else {
             throw error; // Rethrow non-Error exceptions
         }
@@ -36,7 +37,7 @@ function readFile(path: string): string {
         return fs.readFileSync(path, 'utf-8');
     } catch (error) {
         if (error instanceof Error) {
-            throw new Error(`Error reading file '${path}': ${error.message}`);
+            throw new Error(`Unable to read file '${path}': ${error.message}`);
         } else {
             throw error; // Rethrow non-Error exceptions
         }

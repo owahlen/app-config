@@ -2,13 +2,13 @@
 ## Purpose
 This repository is used to manage the configuration of mobile apps.
 The apps download this configuration at startup time from a
-[public URL](https://owahlen.github.io/app-config-public/v1/app-config.json).
+[public URL](https://owahlen.github.io/app-config-public/production/v1/app-config.json).
 
 ## Changing the configuration
 The app configuration is stored in the file
-[app-config.json](versions/v1/app-config.json).
+[app-config.json](configurations/production/v1/app-config.json).
 Its content is validated against the JSON schema defined in the file
-[app-config-schema.json](versions/v1/app-config-schema.json).
+[app-config-schema.json](configurations/production/v1/app-config-schema.json).
 In order to update the configuration create a pull request with the changes to any of these files.
 The [json-validation.yml](.github/workflows/json-validation.yml)
 GitHub action will validate the configuration against the schema when the pull request is submitted.
@@ -20,33 +20,58 @@ After successfully merging to the _main_ branch the
 GitHub action gets triggered and will copy and push the configuration to the repository
 [app-config-public](http://github.com/owahlen/app-config-public).
 Here it gets exposed to the public via the URL
-[https://owahlen.github.io/app-config-public/v1/app-config.json](https://owahlen.github.io/app-config-public/v1/app-config.json).
+[https://owahlen.github.io/app-config-public/v1/app-config.json](https://owahlen.github.io/app-config-public/production/v1/app-config.json).
 
-## Schema versioning
-The configuration schema is versioned using an incrementing integer number.
+## Configuration directory structure
+The configuration files are organized in the following directory structure:
+```
+configurations
+├── development
+│   ├── v1
+│   │   ├── app-config.json
+│   │   └── app-config-schema.json
+│   ├── v2
+│   │   ├── app-config.json
+│   │   └── app-config-schema.json
+│   └── ...
+├── staging
+│   ├── v1
+│   │   ├── app-config.json
+│   │   └── app-config-schema.json
+│   ├── v2
+│   │   ├── app-config.json
+│   │   └── app-config-schema.json
+│   └── ...
+└── production
+    ├── v1
+    │   ├── app-config.json
+    │   └── app-config-schema.json
+    ├── v2
+    │   ├── app-config.json
+    │   └── app-config-schema.json
+    └── ...
+```
+Underneath the top-level directory `configurations` there are 
+three subdirectories `development`, `staging`, and `production` that represent the different environments.
+Depending on the environment the app is running in, the configuration is loaded from the corresponding directory.
+
+Each of these environment directories contains a configuration schema
+that is versioned by an incrementing integer number.
+The directories `vX` represent these versions with `X` being the version number.
 If a modification of the schema introduces a breaking change a new version must be created.
-Versions of configurations and schemas are organized in the directory structure as follows:
-```
-versions
-├── v1
-│   ├── app-config.json
-│   └── app-config-schema.json
-├── v2
-│   ├── app-config.json
-│   └── app-config-schema.json
-└── ...
-```
+
 The file
-[app-config.json](versions/v1/app-config.json) contains the `version` 
+[app-config.json](configurations/production/v1/app-config.json) contains the `version` 
 as attribute of the root object:
 ```JSON
 {
   "version": 1
 }
 ```
+This version number must match the one of the configuration's parent directory name.
 The
-[app-config-schema.json](versions/v1/app-config-schema.json)
-enforces this version to a specific constant:
+[app-config-schema.json](configurations/production/v1/app-config-schema.json)
+enforces the version to a specific constant and hereby ensures that it matches with the configuration file:
 ```JSON
 {
   "type": "object",
@@ -58,7 +83,7 @@ enforces this version to a specific constant:
   }
 }
 ```
-Thus, in order to create a new version an existing version should be copied
+Thus, in order to create a new version an existing version directory should be copied
 and the two files must be updated accordingly.
 
 ## Local testing

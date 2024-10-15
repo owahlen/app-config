@@ -28,7 +28,7 @@ jobs:
           # Copy the file to the public repo directory
           rm -rf app-config-public/docs
           mkdir -p app-config-public/docs
-          cp -r versions/* app-config-public/docs/
+          cp -r configurations/* app-config-public/docs/
 
           # Change to the public repo directory
           cd app-config-public

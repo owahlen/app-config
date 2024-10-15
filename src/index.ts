@@ -1,11 +1,11 @@
-import {validateVersions} from "./versions";
+import {validateConfigurations} from "./configuration";
 
 function main() {
     try {
-        validateVersions();
+        validateConfigurations();
     } catch (error: unknown) {
         if (error instanceof Error) {
-            console.error(`Error validating versions: ${error}.message}`);
+            console.error(`Error validating configurations: ${error}.message}`);
             process.exit(1);
         }
         throw error; // Rethrow non-Error exceptions

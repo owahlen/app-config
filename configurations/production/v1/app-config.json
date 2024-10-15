@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "msps": [
+    {
+      "id": "Tier",
+      "category": "Scooter",
+      "bookable": true,
+      "mapSearchable": true,
+      "tripSearchable": true
+    },
+    {
+      "id": "Voi",
+      "category": "Bike",
+      "bookable": true,
+      "mapSearchable": true,
+      "tripSearchable": true
+    }
+  ]
+}
