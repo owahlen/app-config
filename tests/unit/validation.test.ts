@@ -1,10 +1,10 @@
 import * as fs from 'fs';
-import { validateJSON } from '../../src/validation';
+import {getValidatedConfiguration} from '../../src/validation';
 
 jest.mock('fs');
 const mockedFs = jest.mocked(fs);
 
-describe('validateJSON', () => {
+describe('getValidatedConfiguration', () => {
     const mockConfigPath = 'config.json';
     const mockSchemaPath = 'schema.json';
 
@@ -12,14 +12,14 @@ describe('validateJSON', () => {
         jest.resetAllMocks(); // Reset mocks before each test
     });
 
-    it('should successfully validate valid JSON config against schema', () => {
-        const mockConfig = JSON.stringify({ key: 'value' });
+    it('should return valid config after validating it against schema', () => {
+        const mockConfig = JSON.stringify({version: 1});
         const mockSchema = JSON.stringify({
             type: 'object',
             properties: {
-                key: { type: 'string' }
+                version: {type: 'number'}
             },
-            required: ['key'],
+            required: ['version'],
         });
 
         // Mock fs.readFileSync to return valid config and schema
@@ -30,15 +30,15 @@ describe('validateJSON', () => {
         });
 
         // Test validateJSON function with mocked data
-        expect(() => validateJSON(mockConfigPath, mockSchemaPath)).not.toThrow();
+        expect(() => getValidatedConfiguration(mockConfigPath, mockSchemaPath)).not.toThrow();
     });
 
     it('should throw an error if config file contains invalid JSON', () => {
-        const invalidConfig = '{ key: "value" '; // Malformed JSON
+        const invalidConfig = '{ version: 1 '; // Malformed JSON (missing closing bracket)
         const mockSchema = JSON.stringify({
             type: 'object',
-            properties: { key: { type: 'string' } },
-            required: ['key'],
+            properties: {version: {type: 'number'}},
+            required: ['version'],
         });
 
         mockedFs.readFileSync.mockImplementation((path: fs.PathOrFileDescriptor) => {
@@ -47,13 +47,13 @@ describe('validateJSON', () => {
             return '';
         });
 
-        expect(() => validateJSON(mockConfigPath, mockSchemaPath)).toThrow(
-            new RegExp(`Error parsing JSON file '${mockConfigPath}': Expected property name or '}' in JSON.*`)
+        expect(() => getValidatedConfiguration(mockConfigPath, mockSchemaPath)).toThrow(
+            new RegExp(`Unable to parse JSON file '${mockConfigPath}': Expected property name or '}' in JSON.*`)
         );
     });
 
     it('should throw an error if schema file contains invalid JSON', () => {
-        const mockConfig = JSON.stringify({ key: 'value' });
+        const mockConfig = JSON.stringify({version: 1});
         const invalidSchema = '{ type: "object", '; // Malformed JSON schema
 
         mockedFs.readFileSync.mockImplementation((path: fs.PathOrFileDescriptor) => {
@@ -62,17 +62,17 @@ describe('validateJSON', () => {
             return '';
         });
 
-        expect(() => validateJSON(mockConfigPath, mockSchemaPath)).toThrow(
-            new RegExp(`Error parsing JSON file '${mockSchemaPath}': Expected property name or '}' in JSON.*`)
+        expect(() => getValidatedConfiguration(mockConfigPath, mockSchemaPath)).toThrow(
+            new RegExp(`Unable to parse JSON file '${mockSchemaPath}': Expected property name or '}' in JSON.*`)
         );
     });
 
     it('should throw an error if JSON config does not match schema', () => {
-        const mockConfig = JSON.stringify({ key: 123 }); // Invalid config
+        const mockConfig = JSON.stringify({version: "1"}); // Invalid config (version must be a number)
         const mockSchema = JSON.stringify({
             type: 'object',
-            properties: { key: { type: 'string' } }, // `key` must be a string
-            required: ['key'],
+            properties: {version: {type: 'number'}}, // `version` must be a number
+            required: ['version'],
         });
 
         mockedFs.readFileSync.mockImplementation((path: fs.PathOrFileDescriptor) => {
@@ -81,8 +81,8 @@ describe('validateJSON', () => {
             return '';
         });
 
-        expect(() => validateJSON(mockConfigPath, mockSchemaPath)).toThrow(
-            `Error validating JSON file '${mockConfigPath}': data/key must be string`
+        expect(() => getValidatedConfiguration(mockConfigPath, mockSchemaPath)).toThrow(
+            `Validation failed for JSON file '${mockConfigPath}': data/version must be number`
         );
     });
 
@@ -91,8 +91,8 @@ describe('validateJSON', () => {
             throw new Error('File not found');
         });
 
-        expect(() => validateJSON(mockConfigPath, mockSchemaPath)).toThrow(
-            `Error reading file '${mockConfigPath}': File not found`
+        expect(() => getValidatedConfiguration(mockConfigPath, mockSchemaPath)).toThrow(
+            `Unable to read file '${mockConfigPath}': File not found`
         );
     });
 });
