@@ -20,7 +20,7 @@ After successfully merging to the _main_ branch the
 GitHub action gets triggered and will copy and push the configuration to the repository
 [app-config-public](http://github.com/owahlen/app-config-public).
 Here it gets exposed to the public via the URL
-[https://owahlen.github.io/app-config-public/v1/app-config.json](https://owahlen.github.io/app-config-public/production/v1/app-config.json).
+[https://owahlen.github.io/app-config-public/production/v1/app-config.json](https://owahlen.github.io/app-config-public/production/v1/app-config.json).
 
 ## Configuration directory structure
 The configuration files are organized in the following directory structure:
